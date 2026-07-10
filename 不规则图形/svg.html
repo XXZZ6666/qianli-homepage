@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>svg</title>
+        <link rel="stylesheet" type="text/css" href="svg.css">
+    </head>
+
+    <body>
+        <div class="wrap">
+        <svg class="card" viewBox="0 0 340 380" preserveAspectRatio="none">
+           <defs>
+              <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                 <stop offset="0%" stop-color="#3a3a3a"/>
+                 <stop offset="50%" stop-color="#1a1a1a"/>
+                 <stop offset="100%" stop-color="#2a2a2a"/>
+              </linearGradient>
+           </defs>
+           <path d="
+              M 40 0
+              L 160 0
+              A 40 30 0 0 1 200 25
+              A 10 10 0 0 0 210 30
+              L 300 30
+              A 40 40 0 0 1 340 70
+              L 340 300
+              A 40 40 0 0 1 300 340
+              L 40 340
+              A 40 40 0 0 1  0 300
+              L 0 40
+              A 40 40 0 0 1  40 0
+              Z
+           "
+           fill="url(#bgGrad)"/>
+        </svg>
+
+               <div class="re">
+                <span class="fgyd"></span>
+                <span class="recording">Recording</span>
+                </div>
+
+                <div class="time">
+                    12:34
+                    <sup>56</sup>
+                </div>
+                
+                <div class="nc"><a href="/简介/index.html">
+                     返回主页</a>
+                </div>
+
+                <div class="btn">
+                    <button>打开</button>
+                    <button>关闭</button>
+                    <button>暂停</button>
+                </div>
+                <div class="wav">.wav</div>
+                <div class="BW">
+                    <svg viewBox="0 0 310 50" preserveAspectRatio="none">
+                        <path d="
+                        M 30 0
+                        L 150 0
+                        A 40 50 0 0 0 190 0
+                        A 40 50 0 0 0 230 0
+                        A 40 50 0 0 0 270 0
+                        A 20 20 0 0 1 290 20
+                        L 290 30
+                        A 20 20 0 0 1 270 50
+                        L 30 50
+                        A 20 20 0 0 1 10 30
+                        L 10 20
+                        A 20 20 0 0 1 30 0
+                        Z
+                        "
+                        fill="#ff5500"/>
+                    </svg>
+                </div>
+                
+               <div class="more">
+                   <button title="更多">···</button>                 
+               </div>
+        </div>
+        <script src="svg.js"></script>
+    </body>
+</html>
