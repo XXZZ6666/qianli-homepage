@@ -1,7 +1,19 @@
-// ⭐ 关键：不管从哪个端口打开页面，API 请求始终发到当前主机的 :3000
+// ⭐ 关键：自动匹配当前页面协议（HTTP/HTTPS），避免 Mixed Content 被拦截
+// 如果需要在 GitHub Pages 等静态托管上使用，把后端部署到公网后把地址填到下面
+var DEPLOYED_API = '';  // 例：'https://xxxx.cpolar.io' 或 'https://你的服务器域名'
+
 function apiBase() {
+    // 配置了固定 API 地址就用它
+    if (DEPLOYED_API) {
+        return DEPLOYED_API.replace(/\/$/, '');
+    }
+    // 没配置就用当前页面主机（同一局域网 / 本地测试）
+    var protocol = window.location.protocol;
+    if (protocol === 'file:') return 'http://localhost:3000';
+    var httpProto = protocol.replace(':', '');
     var host = window.location.hostname || 'localhost';
-    return 'http://' + host + ':3000';
+    var port = window.location.port || '3000';
+    return httpProto + '://' + host + ':' + port;
 }
 
 async function api(url, options) {
@@ -16,18 +28,33 @@ async function api(url, options) {
     }
     var fullUrl = apiBase() + url;
     console.log('[API] requesting:', fullUrl);
-    var res = await fetch(fullUrl, {
-        method: options.method || 'GET',
-        body: options.body,
-        credentials: 'include',
-        headers: headers
-    });
-    var data = await res.json();
-    if (data && data.sessionId) {
-        sessionStorage.setItem('__SESSION_ID__', data.sessionId);
-        console.log('[API] saved sessionId:', data.sessionId);
+    try {
+        var res = await fetch(fullUrl, {
+            method: options.method || 'GET',
+            body: options.body,
+            credentials: 'include',
+            headers: headers
+        });
+        var data = await res.json();
+        if (data && data.sessionId) {
+            sessionStorage.setItem('__SESSION_ID__', data.sessionId);
+            console.log('[API] saved sessionId:', data.sessionId);
+        }
+        return data;
+    } catch (err) {
+        console.error('[API ERROR]', err);
+        // 请求失败时给用户明确提示，而不是静默崩溃
+        var pageProtocol = window.location.protocol;
+        var apiProtocol = fullUrl.substring(0, fullUrl.indexOf(':'));
+        if (pageProtocol === 'https:' && apiProtocol === 'http') {
+            alert('请求被浏览器拦截：HTTPS 页面不能请求 HTTP 地址。\n请把后端部署到 HTTPS 服务器，或改用局域网 IP 访问。');
+        } else if (err && err.message && err.message.indexOf('Failed to fetch') >= 0) {
+            alert('无法连接服务器。\n请确认后端服务已启动，并且地址可以访问。\nAPI 地址：' + fullUrl);
+        } else {
+            alert('请求失败：' + (err && err.message ? err.message : err));
+        }
+        return { ok: false, msg: '网络请求失败' };
     }
-    return data;
 }
 
 var registerForm = document.getElementById('registerForm');
@@ -55,8 +82,12 @@ if (registerForm) {
     });
 }
 
-var loginForm = document.getElementById('loginForm');
-if (loginForm) {
+// 手机兼容：确保 DOM 完全加载后再绑定事件
+function bindLoginForm() {
+    var loginForm = document.getElementById('loginForm');
+    if (!loginForm || loginForm.__bound) return;
+    loginForm.__bound = true;
+
     async function doLogin(username, password, force) {
         var data = await api('/api/login', {
             method: 'POST',
@@ -67,7 +98,7 @@ if (loginForm) {
                 if (confirm(data.msg || '该账号已在别处登录，是否继续？继续后原登录会自动失效。')) {
                     await doLogin(username, password, true);
                 }
-            } else {
+            } else if (data.msg) {
                 alert(data.msg);
             }
             return;
@@ -79,14 +110,23 @@ if (loginForm) {
         console.log('[LOGIN] redirecting to:', target);
         window.location.href = target;
     }
-    loginForm.addEventListener('submit', async function(e) {
+
+    loginForm.addEventListener('submit', function(e) {
         e.preventDefault();
         var form = e.target;
         var username = form.username.value.trim();
         var password = form.password.value;
         if (!username || !password) { alert('请输入用户名和密码'); return; }
-        await doLogin(username, password, false);
+        doLogin(username, password, false);
     });
+}
+
+// 立即执行 + DOMContentLoaded 兜底，兼容手机浏览器加载顺序
+bindLoginForm();
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindLoginForm);
+} else {
+    setTimeout(bindLoginForm, 0);
 }
 
 var changePwdForm = document.getElementById('changePwdForm');
@@ -113,7 +153,7 @@ if (changePwdForm) {
         if (!data.ok) { alert(data.msg); return; }
         alert(data.msg || '密码修改成功，请使用新密码登入。');
         sessionStorage.removeItem('__SESSION_ID__');
-        window.location.href = 'dl.html';
+        window.location.href = '../dl.html';
     });
 }
 
