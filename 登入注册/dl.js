@@ -1,6 +1,6 @@
 // ⭐ 关键：自动匹配当前页面协议（HTTP/HTTPS），避免 Mixed Content 被拦截
 // 如果需要在 GitHub Pages 等静态托管上使用，把后端部署到公网后把地址填到下面
-var DEPLOYED_API = 'https://polite-nights-drum.loca.lt';  // 例：'https://xxxx.cpolar.io' 或 'https://你的服务器域名'
+var DEPLOYED_API = 'https://five-rockets-fly.loca.lt';  // 例：'https://xxxx.cpolar.io' 或 'https://你的服务器域名'
 
 function apiBase() {
     // 配置了固定 API 地址就用它
