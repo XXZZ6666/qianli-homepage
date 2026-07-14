@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>日历</title>
+    <link rel="stylesheet" type="text/css" href="rili.css">
+</head>
+<body>
+                
+                    <div class="calendar-widget" id="calendarWidget">
+                            <!-- 紧凑模式：胶囊 -->
+                            <div class="floating-date" id="floatingDate">
+                                <div class="fd-icon">📅</div>
+                                <div class="fd-text">
+                                    <div class="fd-date" id="fdDate"></div>
+                                    <div class="fd-weekday" id="fdWeekday"></div>   
+                                </div>
+                            </div>
+
+                        <!-- 展开模式：完整日历面板 -->
+                        <div class="calendar-panel" id="calendarPanel">
+                            <div class="cp-header">
+                                <button class="cp-nav" onclick="cpChangeMonth(-1)">◀</button>
+                                <div class="cp-title" id="cpTitle">2026年6月</div>
+                                <button class="cp-nav" onclick="cpChangeMonth(1)">▶</button>
+                                <button class="cp-today" onclick="cpGoToday()">今天</button>
+                                <button class="cp-close" onclick="toggleCalendar()">✕</button>
+                            </div>
+                            <div class="cp-weekdays">
+                                <div class="cp-wd sun">日</div>
+                                <div class="cp-wd">一</div>
+                                <div class="cp-wd">二</div>
+                                <div class="cp-wd">三</div>
+                                <div class="cp-wd">四</div>
+                                <div class="cp-wd">五</div>
+                                <div class="cp-wd sat">六</div>
+                            </div>
+                            <div class="cp-days" id="cpDays"></div>
+                            <div class="cp-plan-area">
+                                <div class="cp-date-label" id="cpDateLabel">选择一个日期</div>
+                                <input type="text" class="cp-plan-input" id="cpPlanInput" placeholder="写下这一天的计划..." />
+                                <button class="cp-plan-save" onclick="cpSavePlan()">保存</button>
+                            </div>   
+                        </div>
+                   </div>
+                    
+                   <script src="rili.js"></script>
+                </body>
+
+
+</html>

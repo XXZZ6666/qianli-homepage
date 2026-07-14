@@ -10,22 +10,20 @@
     <body>
         <ul class="top-nav-ul">
             <li class="li-none" ><a href="#souye">🏠 浅离的个人主页</a></li>
-            <li class="menu-item dropdown"><a href="#jibenxx" >👤  基本信息▾</a>
-             <div class="dropdown-content"> 
-             <div class="dropdown-row ">
+            <li class="dropup"><a href="#jibenxx" >👤  基本信息▾</a>
+             <div class="dropup-content ">
                 <a href="#xg">😊 性格</a>
                 <a href="#ah">🎣 爱好</a>
                 <a href="#mb">🎯 目标</a>
              </div>
-             </div>  
             </li>
             <li><a href="#contact">✉️ 联系方式</a></li>
-            <li><div class="dropup ">
-                <button class="dropbtn">🛠️ 工具栏</button>
+            <li><div class="dropup "><a href="#">🛠️ 工具栏</a>
                 <div class="dropup-content ">
                     <a href="../便利贴/BLT.HTML">📝 心愿便利贴</a>
                     <a href="../天气/tq.HTML">⛅ 实时天气</a>
                     <a href="../不规则图形/svg.html">📻 SVG波纹 </a>
+                    <a href="../日历/rili.html">📅 日历</a>
                 </div>
             </div></li>
             <li class="li-none-dl"><a href="../dl.html">🗝️ 登入</a></li>
@@ -55,10 +53,27 @@
              </div>
         </div>     
         
-                <div class="container shouyejieshao">
-                        <h2  >我的名字叫浅离</h2>
-                        <a class="btn" href="#rating">查看我的评价</a>
-                </div>    
+        <div class="shouyejieshao">
+            <div class="shouye-rotate-ring"></div>
+            <div class="shouye-card">
+                <h2>我的名字叫浅离</h2>
+                <p class="shouye-tags">🎐 日语学习者 &nbsp;·&nbsp; 💻 前端爱好者</p>
+                <a class="btn" href="#rating">查看我的评价</a>
+            </div>
+        </div>    
+
+        <div class="flip-card" onclick="flipCard(this)">
+            <div class="flip-inner" title="点击翻转">
+                <div class="flip-front">
+                    <span class="flip-big">你好</span>
+                   
+                </div>
+                <div class="flip-back">
+                    <span class="flip-quote">こんにちは</span>
+                    
+                </div>
+            </div>
+        </div>
                     <div class="note">
                         <div class="sticky-note sticky-yellow" contenteditable="true">今日目标：<br>学一点前端，写一句日语。</div>
                         <div class="sticky-note sticky-pink" contenteditable="true">灵感收集：<br>试着做一个能自己编辑的小卡片。</div>
@@ -68,9 +83,7 @@
                             <div  id="typeTrack">
                                 <div class="type-item" id="typeItem"title="滑动滚轮可自行查看">这是我的自我简介</div>
                             </div>
-                    </div>
-                        
-                            
+                    </div>  
                             <div class="skills-section">
                                 <h3 class="skills-title">我的技能</h3>
                                 <div class="skill-item">
@@ -102,43 +115,6 @@
                                         <div class="skill-bar"><div class="skill-fill"></div></div>
                                 </div>
                             </div>
-                        
-                    <div class="calendar-widget" id="calendarWidget">
-                            <!-- 紧凑模式：胶囊 -->
-                            <div class="floating-date" id="floatingDate">
-                                <div class="fd-icon">📅</div>
-                                <div class="fd-text">
-                                    <div class="fd-date" id="fdDate"></div>
-                                    <div class="fd-weekday" id="fdWeekday"></div>   
-                                </div>
-                            </div>
-
-                        <!-- 展开模式：完整日历面板 -->
-                    <div class="calendar-panel" id="calendarPanel">
-                        <div class="cp-header">
-                            <button class="cp-nav" onclick="cpChangeMonth(-1)">◀</button>
-                            <div class="cp-title" id="cpTitle">2026年6月</div>
-                            <button class="cp-nav" onclick="cpChangeMonth(1)">▶</button>
-                            <button class="cp-today" onclick="cpGoToday()">今天</button>
-                            <button class="cp-close" onclick="toggleCalendar()">✕</button>
-                        </div>
-                        <div class="cp-weekdays">
-                            <div class="cp-wd sun">日</div>
-                            <div class="cp-wd">一</div>
-                            <div class="cp-wd">二</div>
-                            <div class="cp-wd">三</div>
-                            <div class="cp-wd">四</div>
-                            <div class="cp-wd">五</div>
-                        <div class="cp-wd sat">六</div>
-                        </div>
-                        <div class="cp-days" id="cpDays"></div>
-                        <div class="cp-plan-area">
-                            <div class="cp-date-label" id="cpDateLabel">选择一个日期</div>
-                                <input type="text" class="cp-plan-input" id="cpPlanInput" placeholder="写下这一天的计划..." />
-                                <button class="cp-plan-save" onclick="cpSavePlan()">保存</button>
-                            </div>   
-                    </div>
-                </div>
                  <div class="jiantou">
                         <button id="totop" title="返回顶部">↑</button>
                  </div>
