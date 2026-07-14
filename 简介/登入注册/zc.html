@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>注册</title>
+        <link rel="stylesheet" type="text/css" href="dl.css">
+    </head>
+    <body>
+        <div class="dl">
+            <h1 >注册</h1>
+            <form id="registerForm" action="#" >
+                <input type="text" name="username" placeholder="请输入用户名" required>
+                <input type="email" name="email" placeholder="请输入邮箱" required>
+                <div class="password-wrap">
+                    <input type="password" name="password" placeholder="请输入密码" required>
+                    <button type="button" class="eye-btn" data-target="password">👁</button>
+                    <div class="password-hint">密码至少8位,需包含数字、字母和特殊字符</div>
+                </div>
+                <div class="password-wrap">
+                    <input type="password" name="confirm_password" placeholder="请确认密码" required>
+                    <button type="button" class="eye-btn" data-target="confirm_password">👁</button>
+                </div>
+                <input type="submit" name="register" value="注册">
+            </form>
+            <p >已经有账号？<a href="../dl.html">去登入</a></p>
+        </div>
+
+        <script src="dl.js"></script>
+    </body>
+</html>
